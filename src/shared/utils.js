@@ -150,6 +150,14 @@ export const makeCancellable = (promise) => {
   return {
     promise: wrappedPromise,
     cancel() {
+      console.log('promise cancellation, will invoke destroy now');
+
+      if (typeof promise.destroy === 'function') {
+        promise.destroy();
+        console.log('destroy invoked');
+      } else {
+        console.log('destroy is not available');
+      }
       isCancelled = true;
     },
   };
